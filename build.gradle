@@ -1,0 +1,68 @@
+plugins {
+    id "cpp"
+    id "google-test-test-suite"
+    id "com.kauailabs.first.GradleRIO" version "2020.3.2.30"
+}
+
+// Define my targets (RoboRIO) and artifacts (deployable files)
+// This is added by GradleRIO's backing project EmbeddedTools.
+// ...existing code...
+
+// Set this to true to include the src folder in the include directories passed
+// to the compiler. Some eclipse project imports depend on this behavior.
+// We recommend leaving this disabled if possible. Note for eclipse project
+// imports this is enabled by default. For new projects, its disabled
+// --- JNI Build Integration ---
+// This task builds the JNI shared library using CMake in WSL Ubuntu-20.04
+
+// Task to generate JNI headers using Java 11 in WSL
+task generateJNIHeaders(type: Exec) {
+    description = 'Generate JNI headers for AMCUWrapper using Java 11 in WSL'
+    commandLine 'wsl', '-d', 'ubuntu-20.04', '/usr/lib/jvm/java-11-openjdk-amd64/bin/javac',
+        '-h', 'src/main/include',
+        'com/frc/amcu/AMCUWrapper.java',
+        'com/frc/amcu/LimitSwitchCallback.java',
+        'com/frc/amcu/DriveActionCallback.java'
+}
+
+
+
+// To build JNI: gradle buildJNI
+def includeSrcInIncludeRoot = false
+def includeDesktopSupport = false
+
+model {
+    components {
+        amcuJni(NativeLibrarySpec) {
+            targetPlatform wpi.platforms.raspbian
+            if (includeDesktopSupport) {
+                targetPlatform wpi.platforms.desktop
+            }
+            sources {
+                cpp {
+                    source {
+                        srcDir 'src/main/cpp'
+                        include 'jni_amcu_template.cpp', 'amcu.cpp'
+                    }
+                    exportedHeaders {
+                        srcDir 'src/main/include'
+                    }
+                }
+            }
+            binaries.all {
+                // JNI include paths (Java 11)
+                cppCompiler.args "-I/usr/lib/jvm/java-11-openjdk-amd64/include"
+                cppCompiler.args "-I/usr/lib/jvm/java-11-openjdk-amd64/include/linux"
+                // WPILib include path for WSL/Linux
+                cppCompiler.args "-I/usr/local/frc/include"
+                // Add debug symbols to release build
+                cppCompiler.args "-g"
+                // Set rpath so .so finds release WPILib libraries at runtime
+                linker.args "-Wl,-rpath,/usr/local/frc/third-party/lib"
+            }
+            wpi.deps.wpilib(it)
+            wpi.deps.vendor.cpp(it)
+        }
+    }
+    // ...existing code...
+}

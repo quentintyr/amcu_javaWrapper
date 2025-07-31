@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC   -shared -Wl,-soname,libamcu-jni.so -o libamcu-jni.so CMakeFiles/amcu-jni.dir/amcu.cpp.o CMakeFiles/amcu-jni.dir/jni_amcu_template.cpp.o  -Wl,-rpath,/usr/lib/jvm/java-11-openjdk-amd64/lib:/usr/lib/jvm/java-11-openjdk-amd64/lib/server /usr/lib/jvm/java-11-openjdk-amd64/lib/libjawt.so /usr/lib/jvm/java-11-openjdk-amd64/lib/server/libjvm.so 

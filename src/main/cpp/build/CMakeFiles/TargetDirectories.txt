@@ -1,0 +1,3 @@
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/build/CMakeFiles/rebuild_cache.dir
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/build/CMakeFiles/edit_cache.dir
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/build/CMakeFiles/amcu-jni.dir

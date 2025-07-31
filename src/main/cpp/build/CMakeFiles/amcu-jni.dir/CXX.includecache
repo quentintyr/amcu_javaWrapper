@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/amcu.cpp
+
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/jni_amcu_template.cpp
+jni.h
+-
+com_frc_amcu_AMCUWrapper.h
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/com_frc_amcu_AMCUWrapper.h
+amcu.h
+/mnt/d/.skills/.vscode_projects/cleanWrapper/src/main/cpp/amcu.h
+
+/usr/lib/jvm/java-11-openjdk-amd64/include/jni.h
+stdio.h
+-
+stdarg.h
+-
+jni_md.h
+/usr/lib/jvm/java-11-openjdk-amd64/include/jni_md.h
+
+/usr/lib/jvm/java-11-openjdk-amd64/include/linux/jni_md.h
+
