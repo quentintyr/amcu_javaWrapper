@@ -13,6 +13,10 @@ public class AMCUWrapper {
     private static String loadingError = null;
     static {
         try {
+            System.loadLibrary("wpiutil");
+            System.loadLibrary("wpilibc");
+            System.loadLibrary("wpiHAL");
+            System.loadLibrary("ntcore");
             System.load("/home/lvuser/libamcuJni.so");
             nativeLoaded = true;
         } catch (UnsatisfiedLinkError e) {
